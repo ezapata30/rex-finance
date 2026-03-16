@@ -9,7 +9,7 @@
 <title>Rex — Family Finance</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
+  :root{
     --bg:#0a0a0f;--bg2:#12121a;--bg3:#1a1a26;
     --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
     --text:#f0eff5;--text2:#9896a8;--text3:#5f5d70;
@@ -35,6 +35,7 @@
   .sync-btn{width:30px;height:30px;border-radius:50%;background:var(--bg3);border:.5px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:transform .3s}
   .sync-btn.spinning{animation:spin 1s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
+  /* Zone banner */
   .zone-banner{margin:0 16px 10px;border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
   .zone-green{background:var(--green-dim);border:.5px solid var(--green)}
   .zone-yellow{background:var(--amber-dim);border:.5px solid var(--amber)}
@@ -49,44 +50,96 @@
   .zone-yellow .zone-dot{background:var(--amber)}
   .zone-red .zone-dot{background:var(--red);animation:pulse 1.5s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  /* Cash hero */
   .cash-hero{margin:0 16px 10px;background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:16px}
-  .cash-hero-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-  .cash-position{font-size:38px;font-weight:600;font-family:var(--mono);letter-spacing:-1px;transition:color .3s}
+  .cash-hero-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+  .cash-position{font-size:36px;font-weight:600;font-family:var(--mono);letter-spacing:-1px;transition:color .3s}
   .cash-sub-row{display:flex;gap:6px;margin-top:8px}
   .cash-sub-item{flex:1;background:var(--bg3);border-radius:var(--r-sm);padding:8px 10px}
   .cash-sub-label{font-size:10px;color:var(--text3);margin-bottom:3px}
-  .cash-sub-val{font-size:14px;font-weight:600;font-family:var(--mono)}
+  .cash-sub-val{font-size:13px;font-weight:600;font-family:var(--mono)}
+  /* Month reset banner */
+  .reset-banner{background:var(--blue-dim);border:.5px solid var(--blue);border-radius:var(--r-sm);padding:10px 14px;margin:0 16px 10px;display:flex;align-items:center;justify-content:space-between}
+  .reset-banner.hidden{display:none}
+  .reset-text{font-size:12px;color:var(--blue)}
+  .reset-btn{font-size:12px;font-weight:600;color:var(--blue);background:var(--blue-dim);border:.5px solid var(--blue);border-radius:var(--r-sm);padding:5px 12px;cursor:pointer;font-family:var(--font)}
   .data-tag{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500}
   .tag-real{background:var(--green-dim);color:var(--green)}
   .tag-est{background:var(--amber-dim);color:var(--amber)}
   .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 16px}
   .scroll::-webkit-scrollbar{display:none}
-  .tabbar{flex-shrink:0;display:flex;padding:8px 16px calc(8px + env(safe-area-inset-bottom,12px));background:var(--bg2);border-top:.5px solid var(--border);gap:4px}
+  .tabbar{flex-shrink:0;display:flex;padding:8px 10px calc(8px + env(safe-area-inset-bottom,12px));background:var(--bg2);border-top:.5px solid var(--border);gap:4px}
   .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:var(--r-sm);cursor:pointer;transition:all .15s;border:none;background:transparent}
-  .tab-icon{font-size:17px;line-height:1}
+  .tab-icon{font-size:16px;line-height:1}
   .tab-label{font-size:10px;color:var(--text3);font-family:var(--font);transition:color .15s}
   .tab.active .tab-label{color:var(--green)}
   .tab.active{background:var(--green-dim)}
-  .section{display:none}
-  .section.active{display:block}
+  .section{display:none}.section.active{display:block}
   .section-gap{height:12px}
   .card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-  .metric{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:12px}
-  .metric-label{font-size:11px;color:var(--text3);margin-bottom:4px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-  .metric-value{font-size:20px;font-weight:600;font-family:var(--mono);letter-spacing:-.5px}
-  .metric-sub{font-size:10px;color:var(--text3);margin-top:3px}
-  .val-green{color:var(--green)}.val-red{color:var(--red)}
-  .val-amber{color:var(--amber)}.val-blue{color:var(--blue)}
-  .val-purple{color:var(--purple)}
+  /* Paycheck cards */
+  .paycheck-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .paycheck-card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:12px}
+  .paycheck-card.due-today{border-color:var(--green)}
+  .paycheck-card.due-soon{border-color:var(--amber)}
+  .paycheck-person{font-size:11px;color:var(--text3);margin-bottom:4px}
+  .paycheck-days{font-size:28px;font-weight:700;font-family:var(--mono);letter-spacing:-1px}
+  .paycheck-label{font-size:10px;color:var(--text3);margin-top:2px}
+  .paycheck-date{font-size:11px;color:var(--text2);margin-top:6px}
+  .paycheck-expected{font-size:10px;color:var(--text3);margin-top:2px}
+  .paycheck-logged{font-size:11px;font-weight:600;margin-top:3px}
+  /* Account cards */
   .accounts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-  .acct-card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:12px}
+  .acct-card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:all .15s}
+  .acct-card:active{background:var(--bg3);transform:scale(0.98)}
   .acct-name{font-size:11px;color:var(--text3);margin-bottom:4px}
   .acct-bal{font-size:18px;font-weight:600;font-family:var(--mono)}
+  .acct-hint{font-size:9px;color:var(--text3);margin-top:3px}
+  .acct-tap{font-size:9px;color:var(--blue);margin-top:4px}
+  /* W2 cards */
+  .w2-card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+  .w2-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .w2-title{font-size:13px;font-weight:500}
+  .w2-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:.5px solid var(--border)}
+  .w2-row:last-child{border-bottom:none}
+  .w2-label{font-size:12px;color:var(--text2)}
+  .w2-val{font-size:13px;font-weight:600;font-family:var(--mono)}
+  .variance-badge{font-size:10px;padding:2px 7px;border-radius:10px;font-family:var(--mono)}
+  .var-up{background:var(--green-dim);color:var(--green)}
+  .var-down{background:var(--red-dim);color:var(--red)}
+  .var-neutral{background:var(--bg3);color:var(--text3)}
+  /* EJAV card */
+  .ejav-card{background:var(--bg2);border:.5px solid var(--purple);border-radius:var(--r);padding:14px;margin-bottom:10px}
+  .ejav-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .ejav-title{font-size:14px;font-weight:600;color:var(--purple)}
+  .ejav-sub{font-size:11px;color:var(--text3)}
+  .ejav-badge{font-size:10px;padding:3px 10px;border-radius:20px;background:var(--purple-dim);color:var(--purple)}
+  .ejav-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border)}
+  .ejav-row:last-child{border-bottom:none}
+  .ejav-row-label{font-size:13px;color:var(--text)}
+  .ejav-row-sub{font-size:11px;color:var(--text3);margin-top:2px}
+  .ejav-row-amt{font-size:13px;font-weight:600;font-family:var(--mono)}
+  .ejav-total-row{display:flex;justify-content:space-between;align-items:center;padding-top:10px;margin-top:4px;border-top:.5px solid var(--border)}
+  .ejav-total-label{font-size:12px;font-weight:600;color:var(--text2)}
+  .ejav-total-amt{font-size:16px;font-weight:600;font-family:var(--mono);color:var(--purple)}
+  /* Expense rows — editable */
+  .exp-section{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
+  .exp-header{padding:11px 14px;border-bottom:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+  .exp-header-title{font-size:13px;font-weight:500}
+  .exp-header-total{font-size:13px;font-weight:600;font-family:var(--mono)}
+  .exp-row{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--border)}
+  .exp-row:last-child{border-bottom:none}
+  .exp-row-left{flex:1}
+  .exp-row-name{font-size:13px;color:var(--text)}
+  .exp-row-sub{font-size:11px;color:var(--text3);margin-top:2px}
+  .exp-row-right{display:flex;align-items:center;gap:8px}
+  .exp-row-amt{font-size:13px;font-weight:600;font-family:var(--mono)}
+  /* Alerts */
   .alert{border-radius:var(--r-sm);padding:11px 13px;margin-bottom:8px;display:flex;gap:10px}
   .alert-warn{background:var(--amber-dim);border-left:2px solid var(--amber)}
   .alert-good{background:var(--green-dim);border-left:2px solid var(--green)}
   .alert-info{background:var(--blue-dim);border-left:2px solid var(--blue)}
+  .alert-bad{background:var(--red-dim);border-left:2px solid var(--red)}
   .alert-body{font-size:13px;color:var(--text);line-height:1.5}
   .alert-title{font-weight:600;font-size:12px;margin-bottom:2px}
   .row-list{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
@@ -110,9 +163,10 @@
   .goal-amounts{display:flex;justify-content:space-between;font-size:12px;margin-top:6px}
   .goal-current{font-family:var(--mono);font-weight:600}
   .goal-target{color:var(--text3);font-family:var(--mono)}
+  /* Log form */
   .log-form{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
   .form-title{font-size:14px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-  .form-cancel{font-size:13px;color:var(--text3);cursor:pointer;padding:4px 8px;border-radius:var(--r-sm);background:var(--bg3);border:.5px solid var(--border)}
+  .form-cancel{font-size:12px;color:var(--text3);cursor:pointer;padding:4px 10px;border-radius:var(--r-sm);background:var(--bg3);border:.5px solid var(--border)}
   .type-toggle{display:flex;gap:8px;margin-bottom:12px}
   .type-btn{flex:1;padding:9px;border-radius:var(--r-sm);font-size:13px;font-family:var(--font);font-weight:500;cursor:pointer;border:.5px solid var(--border2);background:var(--bg3);color:var(--text2);transition:all .15s;text-align:center}
   .type-btn.active-income{background:var(--green-dim);border-color:var(--green);color:var(--green)}
@@ -131,18 +185,32 @@
   .submit-income{background:var(--green);color:#0a0a0f}
   .submit-expense{background:var(--red);color:#fff}
   .submit-edit{background:var(--blue);color:#fff}
-  /* Transaction items — tappable */
-  .tx-item{padding:11px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--border);cursor:pointer;transition:background .15s;border-radius:var(--r-sm)}
-  .tx-item:active{background:var(--bg3)}
+  /* Transaction items */
+  .tx-item{padding:12px 0;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:.5px solid var(--border);cursor:pointer;-webkit-user-select:none}
+  .tx-item:active{opacity:.7}
   .tx-item:last-child{border-bottom:none}
-  .tx-left{flex:1}
-  .tx-desc{font-size:13px;color:var(--text)}
-  .tx-meta{font-size:11px;color:var(--text3);margin-top:2px;display:flex;gap:5px;flex-wrap:wrap}
-  .tx-tag{background:var(--bg3);padding:1px 6px;border-radius:4px}
-  .tx-right{display:flex;align-items:center;gap:8px}
+  .tx-left{flex:1;padding-right:8px}
+  .tx-desc{font-size:13px;color:var(--text);font-weight:500}
+  .tx-meta{font-size:11px;color:var(--text3);margin-top:3px;display:flex;gap:5px;flex-wrap:wrap}
+  .tx-tag{background:var(--bg3);padding:2px 6px;border-radius:4px}
+  .tx-edit-hint{font-size:10px;color:var(--blue);margin-top:4px}
+  .tx-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
   .tx-amt{font-size:13px;font-weight:600;font-family:var(--mono)}
-  .tx-del{font-size:16px;color:var(--text3);cursor:pointer;padding:4px 6px;border-radius:var(--r-sm);background:var(--red-dim)}
-  .tx-edit-hint{font-size:10px;color:var(--text3);margin-top:4px}
+  .tx-del{font-size:14px;color:var(--text3);cursor:pointer;padding:4px 8px;border-radius:var(--r-sm);background:var(--red-dim);border:.5px solid var(--border)}
+  /* Modal */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:flex-end;justify-content:center}
+  .modal-overlay.hidden{display:none}
+  .modal-sheet{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:430px;max-height:80vh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,16px)}
+  .modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0}
+  .modal-header{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--border)}
+  .modal-title{font-size:15px;font-weight:600}
+  .modal-close{font-size:20px;color:var(--text3);cursor:pointer;padding:4px;line-height:1}
+  .modal-body{flex:1;overflow-y:auto;padding:12px 20px;-webkit-overflow-scrolling:touch}
+  .modal-body::-webkit-scrollbar{display:none}
+  .modal-stat-row{display:flex;gap:8px;margin-bottom:14px}
+  .modal-stat{flex:1;background:var(--bg3);border-radius:var(--r-sm);padding:10px}
+  .modal-stat-label{font-size:10px;color:var(--text3);margin-bottom:3px}
+  .modal-stat-val{font-size:16px;font-weight:600;font-family:var(--mono)}
   .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);border:.5px solid var(--border2);border-radius:20px;padding:10px 20px;font-size:13px;color:var(--text);opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .loading{text-align:center;padding:2rem 0;color:var(--text3);font-size:13px}
@@ -151,16 +219,24 @@
   .empty{text-align:center;padding:2rem 0}
   .empty-icon{font-size:2rem;margin-bottom:8px}
   .empty-text{font-size:13px;color:var(--text3)}
-  .divider{height:.5px;background:var(--border);margin:12px 0}
   #setup-screen{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
   .setup-logo{width:64px;height:64px;background:linear-gradient(135deg,#22d48f,#5b8ef0);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 20px}
   .setup-title{font-size:24px;font-weight:600;margin-bottom:8px}
   .setup-sub{font-size:14px;color:var(--text3);margin-bottom:28px;line-height:1.6}
   .setup-input{background:var(--bg2);border:.5px solid var(--border2);border-radius:var(--r-sm);padding:12px 16px;font-size:14px;color:var(--text);font-family:var(--font);outline:none;width:100%;margin-bottom:12px}
   .setup-btn{width:100%;padding:14px;border-radius:var(--r-sm);background:linear-gradient(135deg,#22d48f,#5b8ef0);border:none;font-size:15px;font-weight:600;color:#0a0a0f;font-family:var(--font);cursor:pointer}
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .metric{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--r);padding:12px}
+  .metric-label{font-size:11px;color:var(--text3);margin-bottom:4px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+  .metric-value{font-size:20px;font-weight:600;font-family:var(--mono);letter-spacing:-.5px}
+  .metric-sub{font-size:10px;color:var(--text3);margin-top:3px}
+  .val-green{color:var(--green)}.val-red{color:var(--red)}
+  .val-amber{color:var(--amber)}.val-blue{color:var(--blue)}
+  .val-purple{color:var(--purple)}
 </style>
 </head>
 <body>
+
 <div id="setup-screen">
   <div class="setup-logo">R</div>
   <div class="setup-title">Welcome to Rex</div>
@@ -168,6 +244,30 @@
   <input class="setup-input" id="api-url-input" type="url" placeholder="https://script.google.com/macros/s/..." autocomplete="off" autocorrect="off" spellcheck="false">
   <button class="setup-btn" onclick="saveApiUrl()">Connect Rex</button>
 </div>
+
+<!-- Account modal -->
+<div class="modal-overlay hidden" id="acct-modal" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Account</div>
+      <div class="modal-close" onclick="closeModalDirect()">×</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stat-row">
+        <div class="modal-stat"><div class="modal-stat-label">Opening</div><div class="modal-stat-val val-blue" id="modal-opening">$0</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Total in</div><div class="modal-stat-val val-green" id="modal-in">$0</div></div>
+        <div class="modal-stat"><div class="modal-stat-label">Total out</div><div class="modal-stat-val val-red" id="modal-out">$0</div></div>
+      </div>
+      <div class="modal-stat-row">
+        <div class="modal-stat" style="flex:2"><div class="modal-stat-label">Estimated current balance</div><div class="modal-stat-val val-green" id="modal-est-bal">$0</div></div>
+      </div>
+      <div class="sec-label">Transactions</div>
+      <div id="modal-tx-list"></div>
+    </div>
+  </div>
+</div>
+
 <div id="app" style="display:none">
   <div class="status-bar"></div>
   <div class="header">
@@ -183,97 +283,259 @@
       <div class="sync-btn" id="sync-btn" onclick="loadData()">↻</div>
     </div>
   </div>
+
   <div class="zone-banner zone-green" id="zone-banner">
     <div>
       <div class="zone-label" id="zone-label">🟢 You're in the green</div>
       <div class="zone-sub" id="zone-sub">Keep logging to track real data</div>
     </div>
-    <div class="zone-dot" id="zone-dot"></div>
+    <div class="zone-dot"></div>
   </div>
+
+  <!-- New month reset banner -->
+  <div class="reset-banner hidden" id="reset-banner">
+    <div class="reset-text">New month — log your opening balances to reset</div>
+    <button class="reset-btn" onclick="goToLog()">Log now</button>
+  </div>
+
   <div class="cash-hero">
-    <div class="cash-hero-label">Live cash position this month</div>
+    <div class="cash-hero-label">
+      <span>Cash in hand this month</span>
+      <div id="data-mode-tag2" class="data-tag tag-est">EST</div>
+    </div>
     <div class="cash-position val-green" id="cash-position">$0</div>
     <div class="cash-sub-row">
-      <div class="cash-sub-item"><div class="cash-sub-label">Total in</div><div class="cash-sub-val val-green" id="hero-income">$0</div></div>
-      <div class="cash-sub-item"><div class="cash-sub-label">Total out</div><div class="cash-sub-val val-red" id="hero-expenses">$0</div></div>
+      <div class="cash-sub-item"><div class="cash-sub-label">Money in</div><div class="cash-sub-val val-green" id="hero-income">$0</div></div>
+      <div class="cash-sub-item"><div class="cash-sub-label">Money out</div><div class="cash-sub-val val-red" id="hero-expenses">$0</div></div>
       <div class="cash-sub-item"><div class="cash-sub-label">Entries</div><div class="cash-sub-val val-blue" id="hero-count">0</div></div>
     </div>
   </div>
+
   <div class="scroll" id="main-scroll">
+
+    <!-- DASHBOARD -->
     <div class="section active" id="sec-dashboard">
       <div class="section-gap"></div>
-      <div class="sec-label">Account balances</div>
-      <div class="accounts-grid">
-        <div class="acct-card"><div class="acct-name">Your checking</div><div class="acct-bal val-green">$260</div><div style="font-size:10px;color:var(--text3);margin-top:3px">Opening balance</div></div>
-        <div class="acct-card"><div class="acct-name">Your spending acct</div><div class="acct-bal val-blue">$100</div><div style="font-size:10px;color:var(--text3);margin-top:3px">Per paycheck</div></div>
-        <div class="acct-card"><div class="acct-name">Wife checking</div><div class="acct-bal val-green">$94</div><div style="font-size:10px;color:var(--text3);margin-top:3px">Opening balance</div></div>
-        <div class="acct-card"><div class="acct-name">Business account</div><div class="acct-bal val-amber">$219</div><div style="font-size:10px;color:var(--amber);margin-top:3px">Build to $1,000</div></div>
+
+      <!-- Paycheck countdowns -->
+      <div class="sec-label">Next paychecks</div>
+      <div class="paycheck-row">
+        <div class="paycheck-card" id="pay-you">
+          <div class="paycheck-person">You</div>
+          <div class="paycheck-days val-green" id="pay-you-days">—</div>
+          <div class="paycheck-label" id="pay-you-label">days away</div>
+          <div class="paycheck-date" id="pay-you-date">—</div>
+          <div class="paycheck-expected">~$870 expected</div>
+          <div class="paycheck-logged" id="pay-you-logged"></div>
+        </div>
+        <div class="paycheck-card" id="pay-wife">
+          <div class="paycheck-person">Wife</div>
+          <div class="paycheck-days val-blue" id="pay-wife-days">—</div>
+          <div class="paycheck-label" id="pay-wife-label">days away</div>
+          <div class="paycheck-date" id="pay-wife-date">—</div>
+          <div class="paycheck-expected">~$511 expected</div>
+          <div class="paycheck-logged" id="pay-wife-logged"></div>
+        </div>
       </div>
+
+      <!-- Account balances -->
+      <div class="sec-label">Bank accounts — tap for history</div>
+      <div class="accounts-grid">
+        <div class="acct-card" onclick="openAcctModal('Your checking')">
+          <div class="acct-name">Your checking</div>
+          <div class="acct-bal val-green" id="bal-your-checking">$260</div>
+          <div class="acct-hint">Start of month balance</div>
+          <div class="acct-tap">Tap for history</div>
+        </div>
+        <div class="acct-card" onclick="openAcctModal('Your spending acct')">
+          <div class="acct-name">Spending acct</div>
+          <div class="acct-bal val-blue" id="bal-spending">$100</div>
+          <div class="acct-hint">Per paycheck split</div>
+          <div class="acct-tap">Tap for history</div>
+        </div>
+        <div class="acct-card" onclick="openAcctModal('Wife checking')">
+          <div class="acct-name">Wife checking</div>
+          <div class="acct-bal val-green" id="bal-wife">$94</div>
+          <div class="acct-hint">Start of month balance</div>
+          <div class="acct-tap">Tap for history</div>
+        </div>
+        <div class="acct-card" onclick="openAcctModal('Business account')">
+          <div class="acct-name">Business acct</div>
+          <div class="acct-bal val-amber" id="bal-biz">$219</div>
+          <div class="acct-hint" style="color:var(--amber)">Target: $1,000</div>
+          <div class="acct-tap">Tap for history</div>
+        </div>
+      </div>
+
+      <!-- Rex insights -->
       <div class="sec-label">Rex insights</div>
-      <div class="alert alert-warn"><div class="alert-body"><div class="alert-title">Cars = 40% of W2 take-home</div>$1,210/mo is your biggest pressure. As businesses grow, attack these first.</div></div>
-      <div class="alert alert-good"><div class="alert-body"><div class="alert-title">Uber approved — start logging</div>Every payout logged builds your real income picture.</div></div>
-      <div class="alert alert-info"><div class="alert-body"><div class="alert-title">Audio at $850 this month</div>2 more clients = $1,700/mo. That's your home down payment accelerator.</div></div>
-      <div class="sec-label">This month at a glance</div>
+      <div class="alert alert-warn" id="insight-cars">
+        <div class="alert-body"><div class="alert-title">Cars + insurance = $1,560/mo</div>Your two biggest cash expenses combined. Priority target as income grows.</div>
+      </div>
+      <div class="alert alert-good" id="insight-uber">
+        <div class="alert-body"><div class="alert-title">Uber approved — start logging</div>Every payout brings you closer to covering your gap with real income.</div>
+      </div>
+      <div class="alert alert-info" id="insight-ejav">
+        <div class="alert-body"><div class="alert-title" id="ejav-insight-title">EJAV Inc. — log your clients</div><div id="ejav-insight-body">2 audio clients active. 2 more = $1,700/mo — covers your monthly gap.</div></div>
+      </div>
+
+      <div class="sec-label">This month — recent activity</div>
       <div class="row-list" id="dash-recent"><div class="loading"><span class="dot-pulse">Loading</span></div></div>
     </div>
+
+    <!-- INCOME -->
     <div class="section" id="sec-income">
       <div class="section-gap"></div>
-      <div class="metrics">
-        <div class="metric"><div class="metric-label">Your W2 <span class="data-tag tag-est">EST</span></div><div class="metric-value val-green">$1,740</div><div class="metric-sub">Per month</div></div>
-        <div class="metric"><div class="metric-label">Wife W2 <span class="data-tag tag-est">EST</span></div><div class="metric-value val-green">$1,022</div><div class="metric-sub">Per month</div></div>
-        <div class="metric"><div class="metric-label">Audio <span class="data-tag tag-real">REAL</span></div><div class="metric-value val-green" id="audio-logged">$0</div><div class="metric-sub">This month</div></div>
-        <div class="metric"><div class="metric-label">Uber <span class="data-tag tag-real">REAL</span></div><div class="metric-value val-purple" id="uber-logged">$0</div><div class="metric-sub">This month</div></div>
+      <div class="sec-label">W2 — expected vs actual</div>
+      <div class="w2-card">
+        <div class="w2-header"><div class="w2-title">Your W2 paycheck</div><div class="data-tag" id="you-w2-tag">EST</div></div>
+        <div class="w2-row"><div class="w2-label">Expected this month</div><div class="w2-val val-blue">~$1,740</div></div>
+        <div class="w2-row">
+          <div class="w2-label">Logged so far</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="w2-val val-green" id="you-w2-logged">$0</div>
+            <div class="variance-badge var-neutral" id="you-w2-var">0 checks</div>
+          </div>
+        </div>
+        <div class="w2-row"><div class="w2-label">Still expected</div><div class="w2-val" id="you-w2-rem" style="color:var(--text3)">$1,740</div></div>
+      </div>
+      <div class="w2-card">
+        <div class="w2-header"><div class="w2-title">Wife W2 paycheck</div><div class="data-tag" id="wife-w2-tag">EST</div></div>
+        <div class="w2-row"><div class="w2-label">Expected this month</div><div class="w2-val val-blue">~$1,022</div></div>
+        <div class="w2-row">
+          <div class="w2-label">Logged so far</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="w2-val val-green" id="wife-w2-logged">$0</div>
+            <div class="variance-badge var-neutral" id="wife-w2-var">0 checks</div>
+          </div>
+        </div>
+        <div class="w2-row"><div class="w2-label">Still expected</div><div class="w2-val" id="wife-w2-rem" style="color:var(--text3)">$1,022</div></div>
+      </div>
+      <div class="sec-label">EJAV Inc.</div>
+      <div class="ejav-card">
+        <div class="ejav-header">
+          <div><div class="ejav-title">EJAV Inc.</div><div class="ejav-sub">Your business entity · 3 streams</div></div>
+          <div class="ejav-badge">This month</div>
+        </div>
+        <div class="ejav-row">
+          <div><div class="ejav-row-label">Audio services</div><div class="ejav-row-sub">Your clients · project-based</div></div>
+          <div class="ejav-row-amt val-green" id="audio-logged">$0</div>
+        </div>
+        <div class="ejav-row">
+          <div><div class="ejav-row-label">Photography + Video</div><div class="ejav-row-sub">Wife's clients</div></div>
+          <div class="ejav-row-amt val-green" id="photo-logged">$0</div>
+        </div>
+        <div class="ejav-row">
+          <div><div class="ejav-row-label">Drum enclosure</div><div class="ejav-row-sub">Partnership · your 1/3</div></div>
+          <div class="ejav-row-amt val-green" id="drum-logged">$0</div>
+        </div>
+        <div class="ejav-total-row">
+          <div class="ejav-total-label">EJAV total this month</div>
+          <div class="ejav-total-amt" id="ejav-total">$0</div>
+        </div>
       </div>
       <div class="row-list">
-        <div class="row-list-header"><span class="row-list-title">Your income</span></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">W2 base pay</div><div class="row-item-sub">$15/hr · 65 hrs · bi-weekly</div></div><div class="row-item-amt val-green">$981</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Commission</div><div class="row-item-sub">Variable each period</div></div><div class="row-item-amt val-green">$373</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Audio business</div><div class="row-item-sub">2 clients this month</div></div><div class="row-item-amt val-green">$850</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Drum enclosure</div><div class="row-item-sub">Log when received</div></div><div class="row-item-amt val-amber" id="drum-logged">$0</div></div>
-      </div>
-      <div class="row-list">
-        <div class="row-list-header"><span class="row-list-title">Wife's income</span></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Family Dollar W2</div><div class="row-item-sub">Part-time · 92% take-home</div></div><div class="row-item-amt val-green">$551</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Uber</div><div class="row-item-sub">Just approved — log payouts</div></div><div class="row-item-amt val-purple" id="uber-logged2">$0</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Photography/Video</div><div class="row-item-sub">Log each client</div></div><div class="row-item-amt val-amber" id="photo-logged">$0</div></div>
+        <div class="row-list-header"><span class="row-list-title">Wife — Uber</span><span class="row-list-total val-purple" id="uber-logged">$0</span></div>
+        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Just approved</div><div class="row-item-sub">Log each payout to build real monthly avg</div></div></div>
       </div>
     </div>
+
+    <!-- EXPENSES -->
     <div class="section" id="sec-expenses">
       <div class="section-gap"></div>
       <div class="metrics">
-        <div class="metric"><div class="metric-label">Fixed <span class="data-tag tag-est">EST</span></div><div class="metric-value val-red">$2,270</div><div class="metric-sub">Non-negotiable</div></div>
-        <div class="metric"><div class="metric-label">Logged <span class="data-tag tag-real">REAL</span></div><div class="metric-value val-red" id="expenses-logged">$0</div><div class="metric-sub">This month</div></div>
+        <div class="metric">
+          <div class="metric-label">Est. fixed <span class="data-tag tag-est">EST</span></div>
+          <div class="metric-value val-red">$3,220</div>
+          <div class="metric-sub">Cash you actually pay</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Logged <span class="data-tag tag-real">REAL</span></div>
+          <div class="metric-value val-red" id="expenses-logged">$0</div>
+          <div class="metric-sub">This month</div>
+        </div>
       </div>
-      <div class="row-list">
-        <div class="row-list-header"><span class="row-list-title">Fixed every month</span><span class="row-list-total val-red">$2,270</span></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Car payments (2)</div><div class="row-item-sub">Biggest pressure</div></div><div class="row-item-amt val-red">$1,210</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Support order</div><div class="row-item-sub">Auto from paycheck</div></div><div class="row-item-amt val-red">$607</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Rent</div></div><div class="row-item-amt val-red">$500</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Internet + phone</div></div><div class="row-item-amt val-red">$260</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Health insurance</div></div><div class="row-item-amt val-red">$160</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">401k loan repayment</div></div><div class="row-item-amt val-amber">$101</div></div>
+
+      <!-- Fixed cash expenses -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-header-title">Fixed — cash you pay every month</div>
+          <div class="exp-header-total val-red">$3,220</div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Car payments (2)</div><div class="exp-row-sub">Biggest cash pressure</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$1,210</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Car insurance</div><div class="exp-row-sub">Both cars</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$350</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Rent</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$500</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Internet + phone</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$260</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Electric + utilities</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$125</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Credit card minimums</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$175</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Subscriptions</div><div class="exp-row-sub">Netflix, Spotify, etc</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-red">$75</div></div>
+        </div>
       </div>
-      <div class="row-list">
-        <div class="row-list-header"><span class="row-list-title">Variable — manage these</span><span class="row-list-total val-amber">$775 est</span></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Groceries</div></div><div class="row-item-amt val-amber">$200</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Eating out</div><div class="row-item-sub">Cut to $75 saves $75/mo</div></div><div class="row-item-amt val-amber">$150</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Credit cards</div></div><div class="row-item-amt val-amber">$175</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Utilities</div></div><div class="row-item-amt val-amber">$150</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Child expenses</div></div><div class="row-item-amt val-amber">$175</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Amazon + subscriptions</div></div><div class="row-item-amt val-amber">$175</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">Health/copays</div></div><div class="row-item-amt val-amber">$50</div></div>
+
+      <!-- Variable expenses — logged -->
+      <div class="exp-section">
+        <div class="exp-header">
+          <div class="exp-header-title">Variable — day to day</div>
+          <div class="exp-header-total val-amber" id="variable-logged">$0 logged</div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Groceries</div><div class="exp-row-sub">~$200 est</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-amber" id="var-groceries">$0</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Gas</div><div class="exp-row-sub">~$150 est</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-amber" id="var-gas">$0</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Kids expenses</div><div class="exp-row-sub">~$175 est</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-amber" id="var-kids">$0</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Eating out</div><div class="exp-row-sub">Rex tip: keep under $100</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-amber" id="var-eating">$0</div></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-row-left"><div class="exp-row-name">Other expenses</div><div class="exp-row-sub">Everything else logged</div></div>
+          <div class="exp-row-right"><div class="exp-row-amt val-amber" id="var-other">$0</div></div>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-body"><div class="alert-title">Note on auto-deducted items</div>Support order, health insurance, and 401k loan are already taken out of your paycheck — your W2 net already reflects these. Rex does not double-count them.</div>
       </div>
     </div>
+
+    <!-- LOG -->
     <div class="section" id="sec-log">
       <div class="section-gap"></div>
-      <div class="log-form" id="log-form">
+      <div class="log-form">
         <div class="form-title">
           <span id="form-title-text">Log entry</span>
-          <span class="form-cancel" id="cancel-edit-btn" style="display:none" onclick="cancelEdit()">Cancel edit</span>
+          <span class="form-cancel" id="cancel-edit-btn" style="display:none" onclick="cancelEdit()">Cancel</span>
         </div>
         <div class="type-toggle">
-          <button class="type-btn active-income" id="btn-income" onclick="setType('income')">+ Income</button>
-          <button class="type-btn" id="btn-expense" onclick="setType('expense')">− Expense</button>
+          <button class="type-btn active-income" id="btn-income" onclick="setType('income')">+ Money in</button>
+          <button class="type-btn" id="btn-expense" onclick="setType('expense')">− Money out</button>
         </div>
         <div class="person-row">
           <button class="person-chip active" id="chip-you" onclick="setPerson('You',this)">You</button>
@@ -284,7 +546,7 @@
           <div class="form-group"><label class="form-label">Category</label><select class="form-control" id="f-category"></select></div>
           <div class="form-group"><label class="form-label">Amount ($)</label><input class="form-control" type="number" id="f-amount" placeholder="0.00" step="0.01" inputmode="decimal"></div>
           <div class="form-group form-full">
-            <label class="form-label">Source (which account/card)</label>
+            <label class="form-label">Source / Account</label>
             <select class="form-control" id="f-source">
               <option value="Your checking">Your checking</option>
               <option value="Your spending acct">Your spending acct</option>
@@ -298,38 +560,48 @@
               <option value="Venmo/Zelle">Venmo/Zelle</option>
             </select>
           </div>
-          <div class="form-group form-full"><label class="form-label">Description (optional)</label><input class="form-control" type="text" id="f-desc" placeholder="Brief note..."></div>
-          <div class="form-group"><label class="form-label">Date</label><input class="form-control" type="date" id="f-date"></div>
+          <div class="form-group form-full">
+            <label class="form-label">Description (optional)</label>
+            <input class="form-control" type="text" id="f-desc" placeholder="Brief note...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input class="form-control" type="date" id="f-date">
+          </div>
         </div>
         <input type="hidden" id="edit-id">
         <button class="submit-btn submit-income" id="submit-btn" onclick="submitEntry()">Add Income</button>
       </div>
-      <div class="sec-label">Recent entries <span style="color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">— tap any to edit</span></div>
-      <div id="tx-list"><div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No entries yet.<br>Start logging above.</div></div></div>
+      <div class="sec-label">Recent entries — <span style="color:var(--blue);font-weight:400;text-transform:none;letter-spacing:0;font-size:11px">tap to edit · × to delete</span></div>
+      <div id="tx-list">
+        <div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No entries yet.<br>Start logging above.</div></div>
+      </div>
     </div>
+
+    <!-- GOALS -->
     <div class="section" id="sec-goals">
       <div class="section-gap"></div>
       <div class="sec-label">Savings goals</div>
       <div id="goals-list"><div class="loading"><span class="dot-pulse">Loading</span></div></div>
-      <div class="sec-label">401k</div>
+      <div class="sec-label">401k (auto from paycheck)</div>
       <div class="row-list">
-        <div class="row-list-header"><span class="row-list-title">Retirement</span><span class="row-list-total val-green">$137.70/check</span></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">401k Traditional</div><div class="row-item-sub">Pre-tax</div></div><div class="row-item-amt val-green">$68.85</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">401k Roth</div><div class="row-item-sub">Post-tax · tax-free growth</div></div><div class="row-item-amt val-green">$68.85</div></div>
-        <div class="row-item"><div class="row-item-left"><div class="row-item-name">401k Loan repayment</div></div><div class="row-item-amt val-amber">-$101.27</div></div>
+        <div class="row-list-header"><span class="row-list-title">Retirement — already happening</span><span class="row-list-total val-green">$137.70/check</span></div>
+        <div class="row-item"><div class="row-item-left"><div class="row-item-name">401k Traditional + Roth</div><div class="row-item-sub">Auto-deducted · pre and post tax</div></div><div class="row-item-amt val-green">$137.70</div></div>
         <div class="row-item"><div class="row-item-left"><div class="row-item-name">YTD contributed</div></div><div class="row-item-amt val-green">$1,058</div></div>
       </div>
       <div class="sec-label">Rex roadmap</div>
       <div class="card">
-        <div style="font-size:13px;color:var(--text2);line-height:1.8">
-          <span style="color:var(--green);font-weight:600">Month 1–3</span> — Uber running, audio to 3 clients, business reserve to $1,000<br>
-          <span style="color:var(--blue);font-weight:600">Month 4–6</span> — Audio at 4 clients, start $200/mo home savings<br>
-          <span style="color:var(--amber);font-weight:600">Month 7–12</span> — $1,000+ surplus → split home fund + emergency<br>
+        <div style="font-size:13px;color:var(--text2);line-height:1.9">
+          <span style="color:var(--green);font-weight:600">Now</span> — Log every paycheck + every expense. Build the real picture.<br>
+          <span style="color:var(--blue);font-weight:600">Month 1–3</span> — Uber running, EJAV to 3 audio clients, business reserve $1,000<br>
+          <span style="color:var(--amber);font-weight:600">Month 4–6</span> — EJAV at 4 clients, start $200/mo home savings<br>
           <span style="color:var(--purple);font-weight:600">Year 2–3</span> — Down payment in reach. Rex will tell you when.
         </div>
       </div>
     </div>
+
   </div>
+
   <div class="tabbar">
     <button class="tab active" onclick="showTab('dashboard',this)"><span class="tab-icon">⚡</span><span class="tab-label">Dashboard</span></button>
     <button class="tab" onclick="showTab('income',this)"><span class="tab-icon">💰</span><span class="tab-label">Income</span></button>
@@ -338,25 +610,95 @@
     <button class="tab" onclick="showTab('goals',this)"><span class="tab-icon">🎯</span><span class="tab-label">Goals</span></button>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
 const STORAGE_KEY='rex_api_url';
 let API_URL=localStorage.getItem(STORAGE_KEY)||'';
 let currentType='income',currentPerson='You',allTransactions=[],editingId=null;
-const INCOME_CATS=['W2 paycheck','Audio business','Drum enclosure','Uber','Photography/Video','Opening Balance','Other income'];
-const EXPENSE_CATS=['Rent','Car payment','Groceries','Gas','Utilities','Phone/Internet','Eating out','Credit card','Child expenses','Amazon/shopping','Subscriptions','Health/copay','Business expense','Other'];
+
+// Paycheck schedules
+const YOU_LAST_PAY=new Date(2026,2,13);
+const WIFE_LAST_PAY=new Date(2026,2,20);
+const BI_WEEKLY=14;
+
+const INCOME_CATS=['W2 paycheck — You','W2 paycheck — Wife','Audio business (EJAV)','Photography/Video (EJAV)','Drum enclosure (EJAV)','Uber','Opening Balance','Other income'];
+const EXPENSE_CATS=['Rent','Car payment','Car insurance','Groceries','Gas','Utilities','Phone/Internet','Eating out','Kids expenses','Credit card','Subscriptions','Amazon/shopping','Other expense'];
 
 window.addEventListener('load',()=>{
   document.getElementById('f-date').valueAsDate=new Date();
   document.getElementById('header-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
   updateCategories();
-  if(API_URL){document.getElementById('setup-screen').style.display='none';document.getElementById('app').style.display='flex';loadData();}
+  updatePaycheckCountdowns();
+  checkNewMonth();
+  if(API_URL){
+    document.getElementById('setup-screen').style.display='none';
+    document.getElementById('app').style.display='flex';
+    loadData();
+  }
 });
+
+function checkNewMonth(){
+  const now=new Date();
+  const key='rex_last_month';
+  const last=localStorage.getItem(key);
+  const current=now.getFullYear()+'-'+(now.getMonth()+1);
+  if(last&&last!==current){
+    document.getElementById('reset-banner').classList.remove('hidden');
+  }
+  localStorage.setItem(key,current);
+}
+
+function goToLog(){
+  document.getElementById('reset-banner').classList.add('hidden');
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-log').classList.add('active');
+  document.querySelectorAll('.tab')[3].classList.add('active');
+  // Pre-select Opening Balance
+  setType('income');
+  const cat=document.getElementById('f-category');
+  for(let i=0;i<cat.options.length;i++){if(cat.options[i].value==='Opening Balance'){cat.selectedIndex=i;break;}}
+  showToast('Log your opening balances for the new month');
+}
+
+function getNextPayday(lastPay){
+  const today=new Date(); today.setHours(0,0,0,0);
+  let next=new Date(lastPay);
+  while(next<=today) next=new Date(next.getTime()+BI_WEEKLY*86400000);
+  return next;
+}
+
+function updatePaycheckCountdowns(){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const nextYou=getNextPayday(YOU_LAST_PAY);
+  const nextWife=getNextPayday(WIFE_LAST_PAY);
+  const daysYou=Math.round((nextYou-today)/86400000);
+  const daysWife=Math.round((nextWife-today)/86400000);
+  const fmt=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+
+  const youEl=document.getElementById('pay-you-days');
+  youEl.textContent=daysYou===0?'TODAY':daysYou;
+  youEl.className='paycheck-days '+(daysYou===0?'val-green':daysYou<=3?'val-amber':'val-blue');
+  document.getElementById('pay-you-label').textContent=daysYou===0?'Payday! Log it':'days away';
+  document.getElementById('pay-you-date').textContent=fmt(nextYou);
+  if(daysYou===0) document.getElementById('pay-you').classList.add('due-today');
+  else if(daysYou<=3) document.getElementById('pay-you').classList.add('due-soon');
+
+  const wifeEl=document.getElementById('pay-wife-days');
+  wifeEl.textContent=daysWife===0?'TODAY':daysWife;
+  wifeEl.className='paycheck-days '+(daysWife===0?'val-green':daysWife<=3?'val-amber':'val-blue');
+  document.getElementById('pay-wife-label').textContent=daysWife===0?'Payday! Log it':'days away';
+  document.getElementById('pay-wife-date').textContent=fmt(nextWife);
+  if(daysWife===0) document.getElementById('pay-wife').classList.add('due-today');
+  else if(daysWife<=3) document.getElementById('pay-wife').classList.add('due-soon');
+}
 
 function saveApiUrl(){
   const url=document.getElementById('api-url-input').value.trim();
   if(!url.startsWith('https://script.google.com')){showToast('Please paste a valid Apps Script URL');return;}
-  API_URL=url;localStorage.setItem(STORAGE_KEY,url);
+  API_URL=url; localStorage.setItem(STORAGE_KEY,url);
   document.getElementById('setup-screen').style.display='none';
   document.getElementById('app').style.display='flex';
   loadData();
@@ -372,71 +714,138 @@ function showTab(name,btn){
 
 async function loadData(){
   if(!API_URL)return;
-  const btn=document.getElementById('sync-btn');btn.classList.add('spinning');
+  const btn=document.getElementById('sync-btn'); btn.classList.add('spinning');
   try{
     const res=await fetch(`${API_URL}?action=getAll`);
     const data=await res.json();
     allTransactions=data.transactions||[];
-    renderAll(data);showToast('Synced ✓');
+    renderAll(data); showToast('Synced ✓');
   }catch(e){showToast('Sync failed — check connection');}
   btn.classList.remove('spinning');
 }
 
+function parseDate(str){
+  if(!str) return null;
+  const s=String(str);
+  const slash=s.match(/^(\d+)\/(\d+)\/(\d+)/);
+  if(slash) return new Date(parseInt(slash[3]),parseInt(slash[1])-1,parseInt(slash[2]));
+  const dash=s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(dash) return new Date(parseInt(dash[1]),parseInt(dash[2])-1,parseInt(dash[3]));
+  return null;
+}
+
 function renderAll(data){
-  const now=new Date();
-  const month=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const now=new Date(); const m=now.getMonth()+1,y=now.getFullYear();
   const thisMonth=allTransactions.filter(tx=>{
-    const d=String(tx.Date||'');
-    return d.includes('/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear())||d.startsWith(month);
+    const d=parseDate(tx.Date);
+    return d&&d.getMonth()+1===m&&d.getFullYear()===y;
   });
-  const realIncome=thisMonth.filter(tx=>tx.Type==='income'&&tx.Category!=='Opening Balance').reduce((a,t)=>a+parseFloat(t.Amount||0),0);
-  const realExpenses=thisMonth.filter(tx=>tx.Type==='expense').reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const isOB=tx=>tx.Category==='Opening Balance';
+  const realTx=thisMonth.filter(tx=>!isOB(tx));
+  const realIncome=realTx.filter(tx=>tx.Type==='income').reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const realExpenses=realTx.filter(tx=>tx.Type==='expense').reduce((a,t)=>a+parseFloat(t.Amount||0),0);
   const cashPosition=realIncome-realExpenses;
-  const hasRealData=thisMonth.filter(tx=>tx.Category!=='Opening Balance').length>0;
+  const hasRealData=realTx.length>0;
 
-  const tag=document.getElementById('data-mode-tag');
-  if(hasRealData){tag.className='data-tag tag-real';tag.textContent='LIVE';}
-  else{tag.className='data-tag tag-est';tag.textContent='EST';}
+  // Tags
+  const tagClass=hasRealData?'tag-real':'tag-est';
+  const tagText=hasRealData?'LIVE':'EST';
+  document.getElementById('data-mode-tag').className='data-tag '+tagClass;
+  document.getElementById('data-mode-tag').textContent=tagText;
+  document.getElementById('data-mode-tag2').className='data-tag '+tagClass;
+  document.getElementById('data-mode-tag2').textContent=tagText;
 
+  // Cash hero
   const cpEl=document.getElementById('cash-position');
   cpEl.textContent=(cashPosition>=0?'+':'')+'$'+Math.abs(Math.round(cashPosition)).toLocaleString();
   cpEl.className='cash-position '+(cashPosition>500?'val-green':cashPosition>=0?'val-amber':'val-red');
   document.getElementById('hero-income').textContent='$'+Math.round(realIncome).toLocaleString();
   document.getElementById('hero-expenses').textContent='$'+Math.round(realExpenses).toLocaleString();
-  document.getElementById('hero-count').textContent=thisMonth.filter(tx=>tx.Category!=='Opening Balance').length;
-
+  document.getElementById('hero-count').textContent=realTx.length;
   updateZone(cashPosition,hasRealData);
 
-  const sumCat=(cat,person)=>thisMonth.filter(tx=>tx.Type==='income'&&tx.Category===cat&&(!person||tx.Person===person)).reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  // W2
+  const youW2Tx=thisMonth.filter(tx=>tx.Type==='income'&&tx.Category==='W2 paycheck — You');
+  const wifeW2Tx=thisMonth.filter(tx=>tx.Type==='income'&&tx.Category==='W2 paycheck — Wife');
+  const youW2=youW2Tx.reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const wifeW2=wifeW2Tx.reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  updateW2Card('you',youW2,youW2Tx.length,1740);
+  updateW2Card('wife',wifeW2,wifeW2Tx.length,1022);
+
+  // Paycheck logged status
+  document.getElementById('pay-you-logged').textContent=youW2>0?'✓ $'+youW2.toFixed(0)+' logged this month':'Not logged yet';
+  document.getElementById('pay-you-logged').style.color=youW2>0?'var(--green)':'var(--text3)';
+  document.getElementById('pay-wife-logged').textContent=wifeW2>0?'✓ $'+wifeW2.toFixed(0)+' logged this month':'Not logged yet';
+  document.getElementById('pay-wife-logged').style.color=wifeW2>0?'var(--green)':'var(--text3)';
+
+  // EJAV
+  const sumCat=(cats,person)=>thisMonth.filter(tx=>tx.Type==='income'&&cats.includes(tx.Category)&&(!person||tx.Person===person)).reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const audioAmt=sumCat(['Audio business (EJAV)','Audio business'],'You');
+  const photoAmt=sumCat(['Photography/Video (EJAV)','Photography/Video'],'Wife');
+  const drumAmt=sumCat(['Drum enclosure (EJAV)','Drum enclosure'],'You');
+  const ejavTotal=audioAmt+photoAmt+drumAmt;
+  const uberAmt=sumCat(['Uber'],'Wife');
   const fmtEl=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent='$'+val.toFixed(2);};
-  fmtEl('audio-logged',sumCat('Audio business','You')||850);
-  const uberAmt=sumCat('Uber','Wife');
-  fmtEl('uber-logged',uberAmt);fmtEl('uber-logged2',uberAmt);
-  fmtEl('drum-logged',sumCat('Drum enclosure','You'));
-  fmtEl('photo-logged',sumCat('Photography/Video','Wife'));
+  fmtEl('audio-logged',audioAmt);
+  fmtEl('photo-logged',photoAmt);
+  fmtEl('drum-logged',drumAmt);
+  fmtEl('ejav-total',ejavTotal);
+  fmtEl('uber-logged',uberAmt);
+
+  // Variable expenses breakdown
+  const expByType=(cat)=>thisMonth.filter(tx=>tx.Type==='expense'&&tx.Category===cat).reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  fmtEl('var-groceries',expByType('Groceries'));
+  fmtEl('var-gas',expByType('Gas'));
+  fmtEl('var-kids',expByType('Kids expenses'));
+  fmtEl('var-eating',expByType('Eating out'));
+  const otherExp=realExpenses-expByType('Groceries')-expByType('Gas')-expByType('Kids expenses')-expByType('Eating out');
+  fmtEl('var-other',Math.max(0,otherExp));
   fmtEl('expenses-logged',realExpenses);
+  document.getElementById('variable-logged').textContent='$'+realExpenses.toFixed(0)+' logged';
 
   renderGoals(data.goals||[]);
   renderTransactions();
-  renderDashRecent(thisMonth.filter(tx=>tx.Category!=='Opening Balance'));
+  renderDashRecent(realTx.slice(0,6));
 }
 
-function updateZone(cashPosition,hasRealData){
+function updateW2Card(person,logged,count,expected){
+  document.getElementById(person+'-w2-logged').textContent='$'+logged.toFixed(2);
+  const variance=logged-expected;
+  const varEl=document.getElementById(person+'-w2-var');
+  varEl.textContent=count+' check'+(count!==1?'s':'')+(logged>0?(variance>=0?' +$'+Math.abs(variance).toFixed(0):' -$'+Math.abs(variance).toFixed(0)):'');
+  varEl.className='variance-badge '+(logged===0?'var-neutral':variance>=0?'var-up':'var-down');
+  const remEl=document.getElementById(person+'-w2-rem');
+  const rem=Math.max(0,expected-logged);
+  remEl.textContent='$'+rem.toFixed(0);
+  remEl.style.color=rem===0?'var(--green)':'var(--text3)';
+  const tagEl=document.getElementById(person+'-w2-tag');
+  tagEl.className='data-tag '+(logged>0?'tag-real':'tag-est');
+  tagEl.textContent=logged>0?'REAL':'EST';
+}
+
+function updateZone(cp,hasData){
   const banner=document.getElementById('zone-banner');
   const label=document.getElementById('zone-label');
   const sub=document.getElementById('zone-sub');
   banner.className='zone-banner';
-  if(!hasRealData){banner.classList.add('zone-green');label.textContent='🟢 Baseline loaded';sub.textContent='Start logging real entries to track live position';return;}
-  if(cashPosition>500){banner.classList.add('zone-green');label.textContent='🟢 You\'re in the green';sub.textContent='$'+Math.round(cashPosition).toLocaleString()+' surplus this month';}
-  else if(cashPosition>=0){banner.classList.add('zone-yellow');label.textContent='🟡 Watch your spending';sub.textContent='Only $'+Math.round(cashPosition).toLocaleString()+' left this month';}
-  else{banner.classList.add('zone-red');label.textContent='🔴 In the red — action needed';sub.textContent='$'+Math.abs(Math.round(cashPosition)).toLocaleString()+' over budget this month';}
+  if(!hasData){banner.classList.add('zone-green');label.textContent='🟢 Ready to track';sub.textContent='Log your first entry to see your real position';return;}
+  if(cp>500){banner.classList.add('zone-green');label.textContent='🟢 You\'re ahead this month';sub.textContent='$'+Math.round(cp).toLocaleString()+' more in than out';}
+  else if(cp>=0){banner.classList.add('zone-yellow');label.textContent='🟡 Watch your spending';sub.textContent='Only $'+Math.round(cp).toLocaleString()+' left this month';}
+  else{banner.classList.add('zone-red');label.textContent='🔴 Spending exceeds income';sub.textContent='$'+Math.abs(Math.round(cp)).toLocaleString()+' more out than in this month';}
 }
 
 function renderDashRecent(txList){
   const el=document.getElementById('dash-recent');
-  const recent=txList.slice(0,5);
-  if(!recent.length){el.innerHTML='<div class="loading" style="padding:1rem"><span style="font-size:12px;color:var(--text3)">No entries yet — log your first transaction</span></div>';return;}
-  el.innerHTML=recent.map(tx=>`<div class="row-item"><div class="row-item-left"><div class="row-item-name">${tx.Description||tx.Category}</div><div class="row-item-sub">${tx.Category} · ${tx.Source||''} · ${tx.Person}</div></div><div class="row-item-amt ${tx.Type==='income'?'val-green':'val-red'}">${tx.Type==='income'?'+':'-'}$${parseFloat(tx.Amount).toFixed(2)}</div></div>`).join('');
+  if(!txList.length){el.innerHTML='<div class="loading" style="padding:1rem"><span style="font-size:12px;color:var(--text3)">No entries yet — tap Log to add your first</span></div>';return;}
+  el.innerHTML=txList.map(tx=>`
+    <div class="row-item" style="cursor:pointer" onclick="openEdit('${String(tx.ID||'').replace(/'/g,"\\'")}')">
+      <div class="row-item-left">
+        <div class="row-item-name">${tx.Description||tx.Category}</div>
+        <div class="row-item-sub">${tx.Category} · ${tx.Source||''} · ${tx.Person}</div>
+      </div>
+      <div class="row-item-amt ${tx.Type==='income'?'val-green':'val-red'}">${tx.Type==='income'?'+':'-'}$${parseFloat(tx.Amount||0).toFixed(2)}</div>
+    </div>
+  `).join('');
 }
 
 function renderGoals(goals){
@@ -446,19 +855,180 @@ function renderGoals(goals){
     const target=parseFloat(g.Target)||1,current=parseFloat(g.Current)||0;
     const pct=Math.min(100,Math.round((current/target)*100));
     const color=colors[g.Goal]||'--blue';
-    return `<div class="goal-card"><div class="goal-top"><div class="goal-name">${g.Goal}</div><div class="goal-badge" style="background:rgba(255,255,255,0.06);color:var(${color})">${pct}%</div></div><div class="goal-meta">${g.Notes||''}</div><div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:var(${color})"></div></div><div class="goal-amounts"><span class="goal-current" style="color:var(${color})">$${current.toLocaleString()}</span><span class="goal-target">of $${target.toLocaleString()}</span></div></div>`;
+    return `<div class="goal-card">
+      <div class="goal-top"><div class="goal-name">${g.Goal}</div><div class="goal-badge" style="background:rgba(255,255,255,0.06);color:var(${color})">${pct}%</div></div>
+      <div class="goal-meta">${g.Notes||''}</div>
+      <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:var(${color})"></div></div>
+      <div class="goal-amounts"><span class="goal-current" style="color:var(${color})">$${current.toLocaleString()}</span><span class="goal-target">of $${target.toLocaleString()}</span></div>
+    </div>`;
   }).join('');
 }
 
 function renderTransactions(){
   const list=document.getElementById('tx-list');
-  if(!allTransactions.length){list.innerHTML='<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No entries yet.<br>Start logging above.</div></div>';return;}
-  list.innerHTML=allTransactions.slice(0,30).map(tx=>`
-    <div class="tx-item" onclick="openEdit('${tx.ID}')">
+  if(!allTransactions.length){list.innerHTML='<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">No entries yet.<br>Tap + Money in or − Money out above.</div></div>';return;}
+  list.innerHTML=allTransactions.slice(0,40).map(tx=>{
+    const id=String(tx.ID||'').replace(/'/g,"\\'");
+    return `<div class="tx-item" onclick="openEdit('${id}')">
       <div class="tx-left">
-        <div class="tx-desc">${tx.Description||tx.Category}</div>
+        <div class="tx-desc">${tx.Description||tx.Category||'Entry'}</div>
         <div class="tx-meta">
-          <span class="tx-tag">${tx.Category}</span>
+          <span class="tx-tag">${tx.Category||''}</span>
           <span class="tx-tag">${tx.Source||'—'}</span>
-          <span class="tx-tag">${tx.Person}</span>
-          <span>${tx.Date}</span>
+          <span class="tx-tag">${tx.Person||''}</span>
+          <span>${tx.Date||''}</span>
+        </div>
+        <div class="tx-edit-hint">Tap to edit</div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt ${tx.Type==='income'?'val-green':'val-red'}">${tx.Type==='income'?'+':'-'}$${parseFloat(tx.Amount||0).toFixed(2)}</div>
+        <div class="tx-del" onclick="event.stopPropagation();deleteEntry('${id}')">×</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Account modal
+function openAcctModal(acctName){
+  document.getElementById('modal-title').textContent=acctName;
+  const ob=allTransactions.filter(tx=>tx.Category==='Opening Balance'&&tx.Source===acctName);
+  const acctTx=allTransactions.filter(tx=>tx.Source===acctName&&tx.Category!=='Opening Balance');
+  const openingBal=ob.reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const totalIn=acctTx.filter(tx=>tx.Type==='income').reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const totalOut=acctTx.filter(tx=>tx.Type==='expense').reduce((a,t)=>a+parseFloat(t.Amount||0),0);
+  const estBal=openingBal+totalIn-totalOut;
+  document.getElementById('modal-opening').textContent='$'+openingBal.toFixed(2);
+  document.getElementById('modal-in').textContent='$'+totalIn.toFixed(2);
+  document.getElementById('modal-out').textContent='$'+totalOut.toFixed(2);
+  document.getElementById('modal-est-bal').textContent='$'+estBal.toFixed(2);
+  document.getElementById('modal-est-bal').className='modal-stat-val '+(estBal>=0?'val-green':'val-red');
+  const allForAcct=[...ob,...acctTx];
+  document.getElementById('modal-tx-list').innerHTML=!allForAcct.length
+    ?'<div class="empty"><div class="empty-text">No transactions for this account yet.</div></div>'
+    :allForAcct.map(tx=>`<div class="tx-item" style="cursor:default"><div class="tx-left"><div class="tx-desc">${tx.Description||tx.Category}</div><div class="tx-meta"><span class="tx-tag">${tx.Category}</span><span class="tx-tag">${tx.Person}</span><span>${tx.Date}</span></div></div><div class="tx-right"><div class="tx-amt ${tx.Type==='income'?'val-green':'val-red'}">${tx.Type==='income'?'+':'-'}$${parseFloat(tx.Amount||0).toFixed(2)}</div></div></div>`).join('');
+  document.getElementById('acct-modal').classList.remove('hidden');
+}
+function closeModal(e){if(e.target===document.getElementById('acct-modal'))closeModalDirect();}
+function closeModalDirect(){document.getElementById('acct-modal').classList.add('hidden');}
+
+// Edit
+function openEdit(id){
+  const tx=allTransactions.find(t=>String(t.ID)===String(id));
+  if(!tx){showToast('Entry not found');return;}
+  editingId=id;
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('sec-log').classList.add('active');
+  document.querySelectorAll('.tab')[3].classList.add('active');
+  document.getElementById('main-scroll').scrollTop=0;
+  setType(tx.Type||'income');
+  const personMap={'You':'chip-you','Wife':'chip-wife','Joint':'chip-joint'};
+  document.querySelectorAll('.person-chip').forEach(c=>c.classList.remove('active'));
+  document.getElementById(personMap[tx.Person]||'chip-you').classList.add('active');
+  currentPerson=tx.Person||'You';
+  const catSel=document.getElementById('f-category');
+  let found=false;
+  for(let i=0;i<catSel.options.length;i++){if(catSel.options[i].value===tx.Category){catSel.selectedIndex=i;found=true;break;}}
+  if(!found&&tx.Category){const opt=document.createElement('option');opt.value=tx.Category;opt.textContent=tx.Category;catSel.appendChild(opt);catSel.value=tx.Category;}
+  document.getElementById('f-amount').value=parseFloat(tx.Amount)||'';
+  const srcSel=document.getElementById('f-source');
+  for(let i=0;i<srcSel.options.length;i++){if(srcSel.options[i].value===tx.Source){srcSel.selectedIndex=i;break;}}
+  document.getElementById('f-desc').value=tx.Description||'';
+  try{
+    const d=parseDate(tx.Date);
+    if(d&&!isNaN(d.getTime())){
+      document.getElementById('f-date').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    }
+  }catch(e){}
+  document.getElementById('edit-id').value=id;
+  document.getElementById('form-title-text').textContent='Editing entry';
+  document.getElementById('cancel-edit-btn').style.display='inline-block';
+  document.getElementById('submit-btn').textContent='Save changes';
+  document.getElementById('submit-btn').className='submit-btn submit-edit';
+  showToast('Tap any field to edit');
+}
+
+function cancelEdit(){
+  editingId=null;
+  document.getElementById('edit-id').value='';
+  document.getElementById('form-title-text').textContent='Log entry';
+  document.getElementById('cancel-edit-btn').style.display='none';
+  document.getElementById('f-amount').value='';
+  document.getElementById('f-desc').value='';
+  document.getElementById('f-date').valueAsDate=new Date();
+  setType('income');
+  document.querySelectorAll('.person-chip').forEach(c=>c.classList.remove('active'));
+  document.getElementById('chip-you').classList.add('active');
+  currentPerson='You';
+}
+
+function setType(type){
+  currentType=type;
+  document.getElementById('btn-income').className='type-btn'+(type==='income'?' active-income':'');
+  document.getElementById('btn-expense').className='type-btn'+(type==='expense'?' active-expense':'');
+  if(!editingId){
+    document.getElementById('submit-btn').className='submit-btn submit-'+(type==='income'?'income':'expense');
+    document.getElementById('submit-btn').textContent=type==='income'?'Add Income':'Add Expense';
+  }
+  updateCategories();
+}
+
+function setPerson(person,btn){
+  currentPerson=person;
+  document.querySelectorAll('.person-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function updateCategories(){
+  const cats=currentType==='income'?INCOME_CATS:EXPENSE_CATS;
+  document.getElementById('f-category').innerHTML=cats.map(c=>`<option value="${c}">${c}</option>`).join('');
+}
+
+async function submitEntry(){
+  const amount=parseFloat(document.getElementById('f-amount').value);
+  if(!amount||amount<=0){showToast('Enter a valid amount');return;}
+  if(!API_URL){showToast('No API connected');return;}
+  const isEdit=!!editingId;
+  const btn=document.getElementById('submit-btn');
+  btn.textContent='Saving...'; btn.disabled=true;
+  try{
+    const res=await fetch(API_URL,{method:'POST',body:JSON.stringify({
+      action:isEdit?'editTransaction':'addTransaction',
+      id:isEdit?editingId:undefined,
+      type:currentType,
+      category:document.getElementById('f-category').value,
+      person:currentPerson,
+      amount:amount,
+      source:document.getElementById('f-source').value,
+      description:document.getElementById('f-desc').value,
+      date:document.getElementById('f-date').value
+    })});
+    const data=await res.json();
+    if(data.success){
+      showToast(isEdit?'Updated ✓':currentType==='income'?'Income logged ✓':'Expense logged ✓');
+      cancelEdit(); loadData();
+    } else showToast('Error: '+(data.error||'Unknown'));
+  }catch(e){showToast('Save failed — check connection');}
+  btn.disabled=false;
+  if(!editingId) setType(currentType);
+}
+
+async function deleteEntry(id){
+  if(!confirm('Delete this entry?'))return;
+  if(!API_URL)return;
+  try{
+    await fetch(API_URL,{method:'POST',body:JSON.stringify({action:'deleteTransaction',id})});
+    showToast('Deleted ✓');
+    if(editingId===id) cancelEdit();
+    loadData();
+  }catch(e){showToast('Delete failed');}
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
